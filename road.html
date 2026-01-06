@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Road Animation</title>
+
+<style>
+body{
+    margin:0;
+    background:#111;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    font-family:Arial;
+}
+
+/* buttons */
+.controls{
+    margin:15px;
+}
+button{
+    padding:10px 30px;
+    font-size:16px;
+    font-weight:bold;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+#start{background:#19a84f;color:white;}
+#stop{background:#b32b1b;color:white;}
+
+/* scene */
+#scene{
+    position:relative;
+    width:900px;
+    height:450px;
+    background:url("road.jpg") no-repeat center;
+    background-size:100% 100%;
+    border:5px solid red;
+    overflow:hidden;
+}
+
+/* bus */
+#bus{
+    position:absolute;
+    width:150px;
+    bottom:60px;
+    left:-200px;
+}
+
+/* car */
+#car{
+    position:absolute;
+    width:110px;
+    bottom:20px;
+    left:-150px;
+}
+
+/* man */
+#man{
+    position:absolute;
+    width:80px;
+    bottom:120px;
+    left:-100px;
+}
+
+/* tiger */
+#tiger{
+    position:absolute;
+    width:90px;
+    top:-100px;
+    left:380px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="controls">
+    <button onclick="startAnim()">START</button>
+    <button onclick="stopAnim()">STOP</button>
+</div>
+
+<div id="scene">
+    <img src="bus.jpg"   id="bus">
+    <img src="car.jpg"   id="car">
+    <img src="men2.jpg"  id="man">
+    <img src="tiger.jpg" id="tiger">
+</div>
+
+<script>
+let animId;
+
+/* positions */
+let busX = -200;
+let carX = -150;
+let manX = -100;
+let tigerY = -100;
+
+const bus   = document.getElementById("bus");
+const car   = document.getElementById("car");
+const man   = document.getElementById("man");
+const tiger = document.getElementById("tiger");
+
+function animate(){
+
+    /* bus & car → */
+    busX += 2.5;
+    carX += 4;
+
+    if(busX > 950) busX = -200;
+    if(carX > 950) carX = -150;
+
+    /* man → */
+    manX -= 2;
+    if(manX < -100) manX = 950;
+    man.style.left=manX + "px";
+
+  
+    tigerY += 2;
+    if(tigerY > 500) tigerY = -100;
+
+    bus.style.left = busX + "px";
+    car.style.left = carX + "px";
+    man.style.left = manX + "px";
+    tiger.style.top = tigerY + "px";
+
+    animId = requestAnimationFrame(animate);
+}
+
+function startAnim(){
+    if(!animId) animate();
+}
+
+function stopAnim(){
+    cancelAnimationFrame(animId);
+    animId = null;
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
